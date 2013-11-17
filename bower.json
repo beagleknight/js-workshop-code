@@ -1,0 +1,19 @@
+{
+  "name": "js-workshop-code",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ultrayoshi/js-workshop-code",
+  "authors": [
+    "ultrayoshi <david@imesmes.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "~2.0.3"
+  }
+}
