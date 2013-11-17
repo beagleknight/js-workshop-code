@@ -1,0 +1,20 @@
+{
+  "name": "js-workshop-code",
+  "version": "0.0.0",
+  "description": "JS workshop ===========",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ultrayoshi/js-workshop-code.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "82756354bf219d0978c1a516d0bed98fab3e90f5",
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}
