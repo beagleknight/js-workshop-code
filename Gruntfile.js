@@ -9,9 +9,17 @@ module.exports = function (grunt) {
                     src: ['Gruntfile.js', 'js/**/*.js']
                 }
             }
+        },
+        watch: {
+            jshint: {
+                files: ['js/**/*.js'],
+                tasks: ['jshint']
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
     grunt.registerTask('default', ['jshint']);
 };
