@@ -1,3 +1,3 @@
 var MYGAME = {};
 
-MYGAME.name = "Boss Battle 2"
+MYGAME.name = "Boss Battle 2";

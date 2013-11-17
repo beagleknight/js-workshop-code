@@ -1,0 +1,32 @@
+body {
+  background: #123456;
+}
+
+ul {
+  background: #aaa;
+  border-radius: 5px;
+  text-align: center;
+  width: 300px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+ul:first-child {
+  background: #ff6666;
+}
+
+ul:last-child {
+  background: #6666ff;
+}
+
+button {
+  background: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+button:hover {
+  background: #777;
+  cursor: pointer;
+}

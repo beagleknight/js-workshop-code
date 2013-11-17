@@ -11,25 +11,48 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            jshint: {
+            scripts: {
                 files: ['js/**/*.js'],
-                tasks: ['jshint']
+                tasks: ['jshint', 'concat', 'uglify']
+            },
+            styles: {
+                files: ['css/**/*.css'],
+                tasks: ['csslint', 'concat', 'cssmin']
             }
         },
         concat: {
-            options: {
-                separator: ';',
-            },
-            dist: {
+            js: {
+                options: {
+                    separator: ';',
+                },
                 src: ['bower_components/jquery/jquery.js', 'js/game.js', 'js/character.js', 'js/player.js', 'js/enemy.js', 'js/main.js'],
                 dest: 'dist/js/built.js'
             },
+            css: {
+                src: ['css/reset.css', 'css/main.css'],
+                dest: 'dist/css/built.css'
+            }
         },
         uglify: {
             build: {
                 files: {
                     'dist/js/built.min.js': 'dist/js/built.js'
                 }
+            }
+        },
+        cssmin: {
+            combine: {
+                files: {
+                    'dist/css/built.min.css': 'dist/css/built.css'
+                }
+            }
+        },
+        csslint: {
+            options: {
+                csslintrc: '.csslintrc'
+            },
+            styles: {
+                src: ['css/**/*.css']
             }
         }
     });
@@ -38,6 +61,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
 
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 };

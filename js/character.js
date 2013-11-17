@@ -1,5 +1,5 @@
 MYGAME.character = function (spec) {
-    that = spec;
+    var that = spec;
 
     return that;
 };

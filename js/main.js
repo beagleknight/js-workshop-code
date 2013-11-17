@@ -1,6 +1,6 @@
 $(function () {
     // Use these arrays for adding players and enemies
-    var players = [];
+    var players = [],
         enemies = [];
 
     /*
@@ -12,7 +12,7 @@ $(function () {
      */
     var pickRandomEnemy = function () {
         return enemies[~~(Math.random() * enemies.length)];
-    }
+    };
 
     /*
      * fillCharacterElement
@@ -60,7 +60,7 @@ $(function () {
             character.drinkPotion();
             fillCharacterElement(character);
         });
-    };
+    }
 
     players.push(MYGAME.player({ id: "player1", name: "David", strength: 10, defense: 10, hp: 100, ap: 50 }));
     players.push(MYGAME.player({ id: "player2", name: "Manfred", strength: 20, defense: 5, hp: 200, ap: 20 }));
@@ -75,7 +75,7 @@ $(function () {
         bindActions(players[i]);
     }
 
-    for (i = 0, l = enemis.length; i < l; i += 1) {
+    for (i = 0, l = enemies.length; i < l; i += 1) {
         fillCharacterElement(enemies[i]);
         bindActions(enemies[i]);
     }
