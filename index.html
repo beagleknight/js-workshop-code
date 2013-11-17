@@ -1,107 +1,18 @@
 <html>
   <head>
-    <script src="bower_components/jquery/jquery.js"></script>
+    <link rel="stylesheet" href="dist/css/built.min.css" />
+    <script src="dist/js/built.min.js"></script>
   </head>
   <body>
-    <canvas id="gameArea1" width="200" height="200"></canvas>
-    <canvas id="gameArea2" width="200" height="200"></canvas>
-    <canvas id="gameArea3" width="200" height="200"></canvas>
-    <p id="basic">Basic game loop: <span></span></p>
-    <p id="raf">Raf game loop: <span></span></p>
-    <script>
-      var canvas1 = document.getElementById('gameArea1'),
-          ctx1 = canvas1.getContext('2d');
-
-      ctx1.fillStyle = "black";
-
-      ctx1.beginPath();
-      ctx1.moveTo(10, 10);
-      ctx1.lineTo(100, 10);
-      ctx1.stroke();
-
-      ctx1.beginPath();
-      ctx1.moveTo(10, 20);
-      ctx1.lineTo(100, 20);
-      ctx1.stroke();
-
-      ctx1.beginPath();
-      ctx1.moveTo(10, 30);
-      ctx1.lineTo(100, 30);
-      ctx1.stroke();
-
-      ctx1.fillStyle = "blue";
-      ctx1.strokeStyle = "red";
-      ctx1.fillRect(100, 100, 50, 50);
-      ctx1.strokeRect(165, 165, 25, 25);
-
-      ctx1.beginPath();
-      ctx1.fillStyle = "green";
-      ctx1.strokeStyle = "orange";
-      ctx1.arc(150, 50, 50, 0, 2 * Math.PI);
-      ctx1.stroke();
-      ctx1.fill();
-
-      var canvas2 = document.getElementById('gameArea2'),
-          ctx2 = canvas2.getContext('2d'),
-          crate2 = new Image();
-
-      crate2.src = 'images/crate.png';
-      crate2.onload = function () {
-          ctx2.drawImage(crate2, 50, 50);
-
-          ctx2.translate(50, 50);
-          ctx2.drawImage(crate2, 0, 0);
-
-          ctx2.scale(2, 2);
-          ctx2.drawImage(crate2, 50, 50);
-
-          ctx2.rotate(45 * (Math.PI / 180));
-          ctx2.drawImage(crate2, 0, 0);
-      };
-
-      var canvas3 = document.getElementById('gameArea3'),
-          ctx3 = canvas3.getContext('2d'),
-          crate3 = new Image();
-
-      ctx3.beginPath();
-      ctx3.moveTo(0, 100);
-      ctx3.lineTo(200, 100);
-      ctx3.stroke();
-      ctx3.moveTo(100, 0);
-      ctx3.lineTo(100, 200);
-      ctx3.stroke();
-
-      crate3.src = 'images/crate.png';
-      crate3.onload = function () {
-          ctx3.save();
-          ctx3.translate(100, 100);
-          ctx3.translate(crate3.width / 2, crate3.height / 2);
-          ctx3.rotate(45 * (Math.PI / 180));
-          ctx3.translate(-crate3.width / 2, -crate3.height / 2);
-          ctx3.drawImage(crate3, 0, 0);
-          ctx3.restore();
-
-          ctx3.drawImage(crate3, 0, 0);
-      };
-
-      var counter1 = 0,
-          basicEl = $('#basic span');
-
-      setInterval(function () {
-        counter1 += 1;
-        basicEl.html(counter1);
-      }, 1000 / 60);
-
-      var counter2 = 0,
-          rafEl = $('#raf span');
-
-      function gameLoop() {
-          requestAnimationFrame(gameLoop);
-          counter2 += 1;
-          rafEl.html(counter2);
-      }
-
-      gameLoop();
-    </script>
+    <div id="wrapper">
+      <h1>Tiny MOBA</h1>
+      <div id="redTeam">
+        <h2>Red Team</h2>
+      </div>
+      <canvas id="gameCanvas" style="border: 1px solid #000" width="800", height="600"></canvas>
+      <div id="blueTeam">
+        <h2>Blue Team</h2>
+      </div>
+    </div>
   </body>
 </html>

@@ -17,7 +17,7 @@ module.exports = function (grunt) {
             },
             styles: {
                 files: ['css/**/*.css'],
-                tasks: ['csslint', 'concat', 'cssmin']
+                tasks: ['concat', 'cssmin']
             }
         },
         concat: {
@@ -25,7 +25,7 @@ module.exports = function (grunt) {
                 options: {
                     separator: ';',
                 },
-                src: ['bower_components/jquery/jquery.js', 'js/game.js', 'js/character.js', 'js/player.js', 'js/enemy.js', 'js/main.js'],
+                src: ['bower_components/jquery/jquery.js', 'js/utils.js', 'js/game.js', 'js/entity.js', 'js/player.js', 'js/crate.js', 'js/main.js'],
                 dest: 'dist/js/built.js'
             },
             css: {

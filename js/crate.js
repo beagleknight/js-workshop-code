@@ -1,16 +1,14 @@
 var MYGAME = MYGAME || {};
 
 /**
- * player constructor function
+ * crate constructor function
  *
- * A player is an entity with more attributes. Also it will
- * server as an avatar for our players.
+ * A crate is a breakable entity. Also our players will
+ * collide with them.
  *
  * Public methods:
  *
- * getHp:
- * - return player's hp
- * isDead:
+ * isBroken:
  * - return true if hp is equal or less than 0
  * render:
  * - receive a canvas context
@@ -23,16 +21,22 @@ var MYGAME = MYGAME || {};
 var game = MYGAME.game,
     entity = MYGAME.entity;
 
-MYGAME.player = function (spec) {
-    var that = entity(spec);
+MYGAME.crate = function (spec) {
+    var that = entity(spec),
+        HP = 3;
 
     /*
-     * TIP #1: Use the superMethod method in utils.js for creating a
+     * TIP #1: HP is private and shared with all instances.
+     * Think about it as a constant. Use it to initialize spec.hp
+     */
+
+    /*
+     * TIP #2: Use the superMethod method in utils.js for creating a
      * super method for entity render and update methods.
      */
 
     /*
-     * TIP #2: Retrieve the image using game getImage method
+     * TIP #3: Retrieve the image using game getImage method
      */
 
     return that;

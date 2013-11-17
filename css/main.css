@@ -2,31 +2,40 @@ body {
   background: #123456;
 }
 
-ul {
-  background: #aaa;
-  border-radius: 5px;
-  text-align: center;
-  width: 300px;
+h1 {
+  font-size: 40px;
   margin-bottom: 10px;
-  display: inline-block;
+  background: #eee;
+  padding: 10px;
 }
 
-ul:first-child {
-  background: #ff6666;
+#wrapper {
+  width: 1280px;
+  height: 680px;
+  margin: 0 auto;
+  text-align: center;
+  background: #888;
+  padding: 10px
 }
 
-ul:last-child {
-  background: #6666ff;
+#redTeam {
+  width: 200px;
+  float: left;
+  background: #f66;
+  height: 600px;
+  margin-right: 38px;
 }
 
-button {
-  background: #fff;
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 5px;
+#gameCanvas {
+  width: 800px;
+  float: left;
+  height: 600px;
+  margin-right: 38px;
 }
 
-button:hover {
-  background: #777;
-  cursor: pointer;
+#blueTeam {
+  width: 200px;
+  float: left;
+  background: #66f;
+  height: 600px;
 }
