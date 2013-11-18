@@ -23,21 +23,25 @@ var game = MYGAME.game,
 
 MYGAME.crate = function (spec) {
     var that = entity(spec),
-        HP = 3;
+        HP = 3,
+        image = game.getImage('crate'),
+        entityRender = UTILS.superMethod(that, 'render'),
+        entityUpdate = UTILS.superMethod(that, 'update');
 
-    /*
-     * TIP #1: HP is private and shared with all instances.
-     * Think about it as a constant. Use it to initialize spec.hp
-     */
+    that.hp = HP;
 
-    /*
-     * TIP #2: Use the superMethod method in utils.js for creating a
-     * super method for entity render and update methods.
-     */
+    that.render = function (ctx) {
+        entityRender(ctx);
+        ctx.drawImage(image, spec.position.x, spec.position.y);
+    };
 
-    /*
-     * TIP #3: Retrieve the image using game getImage method
-     */
+    that.update = function (dt) {
+        entityUpdate(dt);
+    };
+
+    that.isBroken = function () {
+        return that.hp <= 0;
+    };
 
     return that;
 };

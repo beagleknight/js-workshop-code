@@ -36,22 +36,90 @@ var MYGAME = MYGAME || {};
  */
 MYGAME.game = (function () {
     var entities = [],
-        images = {};
+        images = {},
+        canvas,
+        ctx,
+        now = +new Date(),
+        imagesToLoad = 0,
+        imagesLoaded = 0,
+        running = false;
 
-    /*
-     * TIP #1: when loading images, use a counter for images to load
-     * and images loaded.
-     */
+    function loadImageCallback () {
+        imagesLoaded += 1;
+    }
 
-    /*
-     * TIP #2: use +new Date to get the current time in milliseconds
-     */
+    function load (options, cb) {
+        var i, l;
 
-    /*
-     * TIP #3: create a private variable to save game's state or
-     * a simple boolean variable called running
-     */
+        canvas = options.canvasEl;
+        ctx = canvas.getContext("2d");
+
+        for (i = 0, l = options.images.length; i < l; i += 1) {
+            var imageObject = options.images[i],
+                image = new Image();
+
+            imagesToLoad += 1;
+            image.src = imageObject.src;
+            image.onload = loadImageCallback;
+
+            images[imageObject.id] = image;
+        }
+
+        var intervalId = setInterval(function () {
+            if (imagesToLoad === imagesLoaded) {
+                clearInterval(intervalId);
+                cb();
+            }
+        }, 0);
+    }
+
+    function start () {
+        running = true;
+        loop();
+    }
+
+    function addEntity (entity) {
+        entities.push(entity);
+    }
+
+    function getImage (imageId) {
+        return images[imageId];
+    }
+
+    function render (ctx) {
+        var i, l;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (i = 0, l = entities.length; i < l; i += 1) {
+            entities[i].render(ctx);
+        }
+    }
+
+    function update (dt) {
+        var i, l;
+
+        for (i = 0, l = entities.length; i < l; i += 1) {
+            entities[i].update(dt);
+        }
+    }
+
+    function loop () {
+        var dt = (+new Date()) - now;
+
+        if (running) {
+            requestAnimationFrame(loop);
+            update(dt);
+            render(ctx);
+        }
+
+        now  = +new Date();
+    }
 
     return {
+        load: load,
+        start: start,
+        addEntity: addEntity,
+        getImage: getImage
     };
 }());

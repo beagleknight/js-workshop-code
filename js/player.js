@@ -20,20 +20,29 @@ var MYGAME = MYGAME || {};
  * - receives elapsed time (in ms) since last frame
  * - just call entity's update method for now
  */
-var game = MYGAME.game,
-    entity = MYGAME.entity;
+var entity = MYGAME.entity;
 
 MYGAME.player = function (spec) {
-    var that = entity(spec);
+    var that = entity(spec),
+        entityRender = UTILS.superMethod(that, 'render'),
+        entityUpdate = UTILS.superMethod(that, 'update');
+ 
+    that.render = function (ctx) {
+        entityRender(ctx);
+        ctx.beginPath();
+        ctx.fillStyle = "yellow";
+        ctx.arc(spec.position.x, spec.position.y, 10, 0, 2 * Math.PI);
+        ctx.fill();
+    };
 
-    /*
-     * TIP #1: Use the superMethod method in utils.js for creating a
-     * super method for entity render and update methods.
-     */
+    that.update = function (dt) {
+        entityUpdate(dt);
+    };
 
-    /*
-     * TIP #2: Retrieve the image using game getImage method
-     */
+    that.isDead = function () {
+        return that.hp <= 0;
+    };
+
 
     return that;
 };

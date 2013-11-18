@@ -15,6 +15,9 @@
   "expr": true,
   "globals": {
     "$": false,
-    "MYGAME": true
+    "MYGAME": true,
+    "UTILS": true,
+    "superMethod": true,
+    "requestAnimationFrame": false
   }
 }
