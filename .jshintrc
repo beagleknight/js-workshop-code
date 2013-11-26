@@ -18,6 +18,8 @@
     "MYGAME": true,
     "UTILS": true,
     "superMethod": true,
-    "requestAnimationFrame": false
+    "requestAnimationFrame": false,
+    "requirejs": false,
+    "define": false
   }
 }
