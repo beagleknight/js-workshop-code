@@ -12,12 +12,14 @@ define(function () {
         };
 
     function assignKeys (playerId, keyMapActions) {
-        //TODO
-        /**
-         * Bind keydown events based on keyMapActions
-         * and playerId value.
-         * Tip #1: Use lut object with event.keyCode
-         */
+        $(document).on('keydown', function (event) {
+            var action = keyMapActions[lut[event.keyCode]];
+
+            if (action && playerId === seatsController.getPlayerSelectedId()) {
+                $(document).trigger(playerId + action);
+                event.preventDefault();
+            }
+        });
 
         // Halt player if keyup event happens
         $(document).on('keyup', function (event) {

@@ -46,15 +46,11 @@ define(function (require) {
             spec.velocity = { x: 0, y: 0 };
         };
 
-        //TODO
-        /**
-         * Bind gamePad events using player id
-         *
-         * Example:
-         * If player id is 'player1', then events must be like
-         * 'player1MoveRight', 'player1MoveLeft', etc.
-         */
-        $(document).on(spec.id + 'Halt', that.halt);
+        $(document).on(spec.id + 'Halt'      , that.halt);
+        $(document).on(spec.id + 'MoveRight' , that.moveRight);
+        $(document).on(spec.id + 'MoveLeft'  , that.moveLeft );
+        $(document).on(spec.id + 'MoveUp'    , that.moveUp   );
+        $(document).on(spec.id + 'MoveDown'  , that.moveDown );
 
         return that;
     };

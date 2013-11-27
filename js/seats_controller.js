@@ -17,10 +17,7 @@ define(function () {
     function init (selector) {
         var $seats = selector;
 
-        //TODO
-        /**
-         * Bind $seats click event to chooseSeat function
-         */
+        $seats.on('click', chooseSeat);
     }
 
     return {
