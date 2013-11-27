@@ -6,83 +6,79 @@ requirejs.config({
 });
 
 define(function (require) {
-    var $      = require('jquery'),
-        game   = require('game'),
-        entity = require('entity'),
-        player = require('player'),
-        crate  = require('crate');
+    var $                   = require('jquery'),
+        game                = require('game'),
+        player              = require('player'),
+        crate               = require('crate'),
+        seatsController     = require('seats_controller'),
+        gamePad             = require('gamepad');
 
     $(function () {
         var canvasEl = $('#gameCanvas')[0];
 
-        /*
-         * Use $ to find our canvas element and pass it to game load method.
-         * Also pass an object with the images to load (view module game)
-         */
+        seatsController.init($('.seat'));
+        gamePad.assignKeys('player1', {
+            'KEY_D' : 'MoveRight',
+            'KEY_A' : 'MoveLeft',
+            'KEY_W' : 'MoveUp',
+            'KEY_S' : 'MoveDown'
+        });
+        gamePad.assignKeys('player2', {
+            'KEY_RIGHT_ARROW' : 'MoveRight',
+            'KEY_LEFT_ARROW'  : 'MoveLeft',
+            'KEY_UP_ARROW'    : 'MoveUp',
+            'KEY_DOWN_ARROW'  : 'MoveDown'
+        });
+
         game.load({ 
             canvasEl: canvasEl, 
             images: [
                 { id: 'crate', src: 'images/crate.png' }
             ]
         }, function () {
-            /*
-             * When our game is loaded. Create a few entities like players or
-             * crates on random positions and add them to our game. Then start.
-             * Try different velocities as well for players and see the results.
-             */
-            var e1 = entity({
-                position: {
-                    x: 50,
-                    y: 50
-                },
-                velocity: {
-                    x: 0,
-                    y: 0
-                }
-            });
-
-            game.addEntity(e1);
-
-            var p1 = player({
+            game.addEntity(player({
+                id: 'player1',
+                collisionGroup: 'players',
                 hp: 10,
                 position: {
                     x: 100,
                     y: 300
-                },
-                velocity: {
-                    x: 30,
-                    y: 0
                 }
-            });
+            }));
 
-            game.addEntity(p1);
-
-            var p2 = player({
+            game.addEntity(player({
+                id: 'player2',
+                collisionGroup: 'players',
                 hp: 10,
                 position: {
-                    x: 100,
-                    y: 400
-                },
-                velocity: {
-                    x: 60,
-                    y: 30 
+                    x: 700,
+                    y: 300
                 }
-            });
+            }));
 
-            game.addEntity(p2);
-
-            var c1 = crate({
+            game.addEntity(crate({
+                collisionGroup: 'crates',
                 position: {
                     x: 200,
                     y: 100
-                },
-                velocity: {
-                    x: 0,
-                    y: 0
                 }
-            });
+            }));
 
-            game.addEntity(c1);
+            game.addEntity(crate({
+                collisionGroup: 'crates',
+                position: {
+                    x: 400,
+                    y: 200
+                }
+            }));
+
+            game.addEntity(crate({
+                collisionGroup: 'crates',
+                position: {
+                    x: 500,
+                    y: 400
+                }
+            }));
 
             game.start();
         });

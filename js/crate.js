@@ -11,6 +11,7 @@ define(function (require) {
             entityRender = utils.superMethod(that, 'render'),
             entityUpdate = utils.superMethod(that, 'update');
 
+        spec.velocity = { x: 0, y: 0 };
         that.hp = HP;
 
         that.render = function (ctx) {

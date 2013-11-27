@@ -1,6 +1,6 @@
 define(function (require) {
-    var entity = require('entity'),
-        utils  = require('utils'),
+    var entity  = require('entity'),
+        utils   = require('utils'),
         player;
 
     player = function (spec) {
@@ -8,6 +8,8 @@ define(function (require) {
             entityRender = utils.superMethod(that, 'render'),
             entityUpdate = utils.superMethod(that, 'update');
      
+        spec.velocity = { x: 0, y: 0 };
+
         that.render = function (ctx) {
             entityRender(ctx);
             ctx.beginPath();
@@ -24,6 +26,35 @@ define(function (require) {
             return that.hp <= 0;
         };
 
+        that.moveRight = function () {
+            this.velocity.x = 10;
+        };
+
+        that.moveLeft = function () {
+            this.velocity.x = -10;
+        };
+
+        that.moveUp = function () {
+            this.velocity.y = 10;
+        };
+
+        that.moveDown = function () {
+            this.velocity.y = -10;
+        };
+
+        that.halt = function () {
+            this.velocity = { x: 0, y: 0 };
+        };
+
+        //TODO
+        /**
+         * Bind gamePad events using player id
+         *
+         * Example:
+         * If player id is 'player1', then events must be like
+         * 'player1MoveRight', 'player1MoveLeft', etc.
+         */
+        $(document).on(spec.id + 'Halt', $.proxy(that.halt, that));
 
         return that;
     };
