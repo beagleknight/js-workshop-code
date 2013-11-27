@@ -27,23 +27,23 @@ define(function (require) {
         };
 
         that.moveRight = function () {
-            this.velocity.x = 10;
+            spec.velocity.x = 50;
         };
 
         that.moveLeft = function () {
-            this.velocity.x = -10;
+            spec.velocity.x = -50;
         };
 
         that.moveUp = function () {
-            this.velocity.y = 10;
+            spec.velocity.y = -50;
         };
 
         that.moveDown = function () {
-            this.velocity.y = -10;
+            spec.velocity.y = 50;
         };
 
         that.halt = function () {
-            this.velocity = { x: 0, y: 0 };
+            spec.velocity = { x: 0, y: 0 };
         };
 
         //TODO
@@ -54,7 +54,7 @@ define(function (require) {
          * If player id is 'player1', then events must be like
          * 'player1MoveRight', 'player1MoveLeft', etc.
          */
-        $(document).on(spec.id + 'Halt', $.proxy(that.halt, that));
+        $(document).on(spec.id + 'Halt', that.halt);
 
         return that;
     };
