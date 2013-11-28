@@ -1,4 +1,4 @@
-define(function () {
+define(function (require) {
     var seatsController = require('seats_controller'),
         lut = {
             37: "KEY_LEFT_ARROW",
@@ -22,7 +22,7 @@ define(function () {
         });
 
         // Halt player if keyup event happens
-        $(document).on('keyup', function (event) {
+        $(document).on('keyup', function () {
             if (playerId === seatsController.getPlayerSelectedId()) {
                 $(document).trigger(playerId + 'Halt');
             }

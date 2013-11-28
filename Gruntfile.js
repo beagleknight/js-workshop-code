@@ -6,13 +6,13 @@ module.exports = function (grunt) {
                     jshintrc: '.jshintrc'
                 },
                 files: {
-                    src: ['Gruntfile.js', 'js/**/*.js']
+                    src: ['Gruntfile.js', 'public/js/**/*.js']
                 }
             }
         },
         watch: {
             scripts: {
-                files: ['js/**/*.js'],
+                files: ['public/js/**/*.js'],
                 tasks: ['jshint']
             }
         }
