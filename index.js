@@ -1,10 +1,7 @@
 var express = require('express'),
     app     = express();
 
-// TODO
-/*
- * Add the bodyParser middleware
- */
+app.use(express.bodyParser());
 app.use(express.static(__dirname + '/public'));
 app.set("view engine", "jade");
 app.set("views", __dirname + "/views");
@@ -13,25 +10,18 @@ app.get('/about', function(req, res){
     res.render("about");
 });
 
-// TODO
-/*
- * Define a route for credits page in the same way as
- * the previous about page
- * /
+app.get('/credits', function(req, res){
+    res.render("credits");
+});
 
-// TODO
-/*
- * Define a route for GET /players/new
- * In the view render a simple form with action to '/players' using
- * POST http method.
- */
+app.get('/players/new', function(req, res){
+    res.render("players/new");
+});
 
-// TODO
-/*
- * Define a route for POST /players
- * Grab the form parameters using req.body
- * Render players/show view passing the same parameters.
- */
+app.post('/players', function(req, res){
+    var player = req.body.player;
+    res.render("players/show", { player: player });
+});
 
 app.listen(9000);
 console.log('Listening on port 9000');
