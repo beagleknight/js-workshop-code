@@ -3,6 +3,11 @@ var express = require('express'),
     app     = express(),
     server  = http.createServer(app),
     io      = require('socket.io').listen(server);
+//TODO
+/*
+ * Create the redis client. npm module is already
+ * on package.json
+ */
 
 app.use(express.bodyParser());
 app.use(express.static(__dirname + '/public'));
@@ -26,6 +31,13 @@ app.post('/players', function(req, res){
     res.render("players/show", { player: player });
 });
 
+//TODO
+/*
+ * Get all fields and values from playerPositions hash key
+ * If it's null, initialize the hash with these values
+ * Use JSON.stringify() to store JS objects as JSON strings
+ * Use JSON.parse() to convert JSON string to object
+ */
 var playerPositions = {
     player1: { x: 100, y: 200 },
     player2: { x: 100, y: 400 },
@@ -55,6 +67,13 @@ io.sockets.on('connection', function (socket) {
             position = data.playerPosition;
 
         playerPositions[playerId] = position;
+        //TODO
+        /*
+         * Update hash playerPositions with this position
+         * Use hset instead of hmset because we are
+         * updating one hash key
+         * Use JSON.stringify() to store JS objects as JSON strings
+         */
     });
 });
 
