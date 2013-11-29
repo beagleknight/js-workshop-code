@@ -19,24 +19,14 @@ define(function (require) {
         var canvasEl = $('#gameCanvas')[0],
             socket   = io.connect();
 
-        //TODO
-        /*
-         * seatsController module will need the socket in
-         * order to control ocuppied seats.
-         */
-        seatsController.init($('.seat'));
+        seatsController.init($('.seat'), socket);
 
-        //TODO
-        /*
-         * gamePad module will need the socket in order to 
-         * send player's action to other clients
-         */
         gamePad.init({
             'KEY_D' : 'MoveRight',
             'KEY_A' : 'MoveLeft',
             'KEY_W' : 'MoveUp',
             'KEY_S' : 'MoveDown'
-        });
+        }, socket);
 
         game.load({ 
             canvasEl: canvasEl, 
@@ -44,51 +34,35 @@ define(function (require) {
                 { id: 'crate', src: 'images/crate.png' }
             ]
         }, function () {
-            //TODO
-            /*
-             * Server will send the player's positions so bind an event
-             * called 'getPlayerPositions' and initialize players with
-             * correct positions.
-             */
-            game.addEntity(player({
-                id: 'player1',
-                collisionGroup: 'players',
-                hp: 10,
-                position: {
-                    x: 100,
-                    y: 200
-                }
-            }));
+            socket.on("getPlayerPositions", function (playerPositions) {
+                game.addEntity(player({
+                    id: 'player1',
+                    collisionGroup: 'players',
+                    hp: 10,
+                    position: playerPositions.player1
+                }));
 
-            game.addEntity(player({
-                id: 'player2',
-                collisionGroup: 'players',
-                hp: 10,
-                position: {
-                    x: 100,
-                    y: 400
-                }
-            }));
+                game.addEntity(player({
+                    id: 'player2',
+                    collisionGroup: 'players',
+                    hp: 10,
+                    position: playerPositions.player2
+                }));
 
-            game.addEntity(player({
-                id: 'player3',
-                collisionGroup: 'players',
-                hp: 10,
-                position: {
-                    x: 700,
-                    y: 200
-                }
-            }));
+                game.addEntity(player({
+                    id: 'player3',
+                    collisionGroup: 'players',
+                    hp: 10,
+                    position: playerPositions.player3
+                }));
 
-            game.addEntity(player({
-                id: 'player4',
-                collisionGroup: 'players',
-                hp: 10,
-                position: {
-                    x: 700,
-                    y: 400
-                }
-            }));
+                game.addEntity(player({
+                    id: 'player4',
+                    collisionGroup: 'players',
+                    hp: 10,
+                    position: playerPositions.player4
+                }));
+            });
 
             game.addEntity(crate({
                 collisionGroup: 'crates',
@@ -107,22 +81,7 @@ define(function (require) {
             }));
 
             game.start();
-
-            //TODO
-            /*
-             * Emit the event 'game started' to the server
-             */
-
-        });
-
-        //TODO
-        /*
-         * Remove the following code, it's just a HelloWorld
-         * for test purpouses
-         */
-        socket.on('news', function (data) {
-            console.log(data);
-            socket.emit('my other event', { my: 'data' });
+            socket.emit("game started");
         });
     });
 });

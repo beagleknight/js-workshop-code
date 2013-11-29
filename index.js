@@ -38,38 +38,23 @@ io.sockets.on('connection', function (socket) {
         socket.emit('getPlayerPositions', playerPositions);
     });
 
-    //TODO
-    /*
-     * Bind 'player action' event and broadcast the same
-     * event to all clients with the same data
-     */
+    socket.on("player action", function (data) {
+        socket.broadcast.emit("player action", data);
+    });
 
-    //TODO
-    /*
-     * Bind 'player sit' event and broadcast the same
-     * event to all clients with the same data
-     */
+    socket.on("player sit", function (data) {
+        socket.broadcast.emit("player sit", data);
+    });
 
-    //TODO
-    /*
-     * Bind 'player stand' event and broadcast the same
-     * event to all clients with the same data
-     */
+    socket.on("player stand", function (data) {
+        socket.broadcast.emit("player stand", data);
+    });
 
-    //TODO
-    /*
-     * Bind 'player update position' and update the
-     * playerPositions object
-     */
+    socket.on("player update position", function (data) {
+        var playerId = data.playerId,
+            position = data.playerPosition;
 
-    //TODO
-    /*
-     * Remove the following code, it's just a HelloWorld
-     * for test purpouses
-     */
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
+        playerPositions[playerId] = position;
     });
 });
 

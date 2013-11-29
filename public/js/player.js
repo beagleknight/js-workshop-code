@@ -42,17 +42,12 @@ define(function (require) {
             spec.velocity.y = 50;
         };
 
-        //TODO
-        /*
-         * Add the socket parameter
-         */
-        that.halt = function () {
+        that.halt = function (event, data) {
             spec.velocity = { x: 0, y: 0 };
-            //TODO
-            /*
-             * Emit an event 'player update position' to the server 
-             * with the player's position
-             */
+            data.socket.emit("player update position", { 
+                playerId: spec.id, 
+                playerPosition: spec.position
+            });
         };
 
         $(document).on(spec.id + 'Halt'      , that.halt);

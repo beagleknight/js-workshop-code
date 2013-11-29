@@ -1,5 +1,5 @@
 define(function () {
-    var playerSelectedId, $seats;
+    var playerSelectedId, $seats, socket;
 
     function sit (event) {
         var playerName = window.prompt("What's your name?"),
@@ -12,28 +12,26 @@ define(function () {
         seat.find('.name').html(playerName);
         seat.find('.standup').attr('disabled', false);
 
-        //TODO
-        /*
-         * Emit an event 'player sit' to the server 
-         * with the player's id and player's name
-         */
+        socket.emit("player sit", {
+            playerId: playerSelectedId,
+            playerName: playerName
+        });
     }
 
     function standUp (event) {
         var target = $(event.currentTarget),
             seat   = target.parents('.seat');
 
-        playerSelectedId = null;
         target.attr('disabled', true);
 
         $seats.find('.sit:not(.network)').attr('disabled', false);
         seat.find('.name').html('unknown');
 
-        //TODO
-        /*
-         * Emit an event 'player stand' to the server 
-         * with the player's id
-         */
+        socket.emit("player stand", {
+            playerId: playerSelectedId,
+        });
+
+        playerSelectedId = null;
     }
 
     function networkPlayerSit(data) {
@@ -59,25 +57,15 @@ define(function () {
         return playerSelectedId;
     }
 
-    //TODO
-    /*
-     * Add the socket parameter to init and save it in a variable
-     */
-    function init (selector) {
+    function init (selector, s) {
+        socket = s;
         $seats = selector;
         $seats.find('.sit').on('click', sit);
         $seats.find('.standup').on('click', standUp);
         playerSelectedId = null;
 
-        //TODO
-        /*
-         * Bind event 'player sit' to networkPlayerSit function
-         */
-
-        //TODO
-        /*
-         * Bind event 'player stand' to networkPlayerStand function
-         */
+        socket.on("player sit", networkPlayerSit);
+        socket.on("player stand", networkPlayerStand);
     }
 
     return {

@@ -11,12 +11,7 @@ define(function (require) {
             68: "KEY_D"
         };
 
-
-    //TODO
-    /*
-     * Add the socket parameter
-     */
-    function init (keyMapActions) {
+    function init (keyMapActions, socket) {
         $(document).on('keydown', function (event) {
             var action = keyMapActions[lut[event.keyCode]],
                 playerId = seatsController.getPlayerSelectedId();
@@ -24,11 +19,7 @@ define(function (require) {
             if (action && playerId) {
                 $(document).trigger(playerId + action);
                 event.preventDefault();
-                //TODO
-                /*
-                 * Emit the 'player action' event passing the same
-                 * event triggered as playerAction data
-                 */
+                socket.emit("player action", { playerAction: playerId + action });
             }
         });
 
@@ -36,24 +27,14 @@ define(function (require) {
             var playerId = seatsController.getPlayerSelectedId();
 
             if (playerId) {
-                //TODO
-                /*
-                 * Pass the socket parameter to the event data
-                 */
-                $(document).trigger(playerId + 'Halt');
-                //TODO
-                /*
-                 * Emit the 'player action' event passing the same
-                 * event triggered as playerAction data
-                 */
+                $(document).trigger(playerId + 'Halt', { socket: socket });
+                socket.emit("player action", { playerAction: playerId + 'Halt' });
             }
         });
 
-        //TODO
-        /*
-         * Bind the 'player action' and trigger playerAction
-         * from data using $(documente).trigger
-         */
+        socket.on("player action", function (data) {
+            $(document).trigger(data.playerAction);
+        });
     }
 
     return {
