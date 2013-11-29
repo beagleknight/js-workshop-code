@@ -16,7 +16,7 @@ define(function (require) {
     /*
      * Add the socket parameter
      */
-    function assignKeys (keyMapActions) {
+    function init (keyMapActions) {
         $(document).on('keydown', function (event) {
             var action = keyMapActions[lut[event.keyCode]],
                 playerId = seatsController.getPlayerSelectedId();
@@ -24,6 +24,11 @@ define(function (require) {
             if (action && playerId) {
                 $(document).trigger(playerId + action);
                 event.preventDefault();
+                //TODO
+                /*
+                 * Emit the 'player action' event passing the same
+                 * event triggered as playerAction data
+                 */
             }
         });
 
@@ -36,11 +41,22 @@ define(function (require) {
                  * Pass the socket parameter to the event data
                  */
                 $(document).trigger(playerId + 'Halt');
+                //TODO
+                /*
+                 * Emit the 'player action' event passing the same
+                 * event triggered as playerAction data
+                 */
             }
         });
+
+        //TODO
+        /*
+         * Bind the 'player action' and trigger playerAction
+         * from data using $(documente).trigger
+         */
     }
 
     return {
-        assignKeys: assignKeys
+        init: init
     };
 });

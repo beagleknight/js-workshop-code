@@ -31,7 +31,7 @@ define(function (require) {
          * gamePad module will need the socket in order to 
          * send player's action to other clients
          */
-        gamePad.assignKeys({
+        gamePad.init({
             'KEY_D' : 'MoveRight',
             'KEY_A' : 'MoveLeft',
             'KEY_W' : 'MoveUp',
