@@ -42,8 +42,17 @@ define(function (require) {
             spec.velocity.y = 50;
         };
 
+        //TODO
+        /*
+         * Add the socket parameter
+         */
         that.halt = function () {
             spec.velocity = { x: 0, y: 0 };
+            //TODO
+            /*
+             * Emit an event 'player update position' to the server 
+             * with the player's position
+             */
         };
 
         $(document).on(spec.id + 'Halt'      , that.halt);

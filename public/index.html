@@ -9,12 +9,34 @@
       <h1>Tiny MOBA</h1>
       <div id="redTeam">
         <h2>Red Team</h2>
-        <button id="player1Seat" class="seat" data-player-id="player1">Sit</button>
+        <ul class="playerControls seat">
+          <h3>Player 1</h3>
+          <li>Name: <span class="name">unknown</span></li>
+          <li><button class="sit" data-player-id="player1">Sit</button></li>
+          <li><button class="standup" data-player-id="player1" disabled>Stand up</button></li>
+        </ul>
+        <ul class="playerControls seat">
+          <h3>Player 2</h3>
+          <li>Name: <span class="name">unknown</span></li>
+          <li><button class="sit" data-player-id="player2">Sit</button></li>
+          <li><button class="standup" data-player-id="player2" disabled>Stand up</button></li>
+        </ul>
       </div>
       <canvas id="gameCanvas" style="border: 1px solid #000" width="800", height="600"></canvas>
       <div id="blueTeam">
         <h2>Blue Team</h2>
-        <button id="player2Seat" class="seat" data-player-id="player2">Sit</button>
+        <ul class="playerControls seat">
+          <h3>Player 3</h3>
+          <li>Name: <span class="name">unknown</span></li>
+          <li><button class="sit" data-player-id="player3">Sit</button></li>
+          <li><button class="standup" data-player-id="player3" disabled>Stand up</button></li>
+        </ul>
+        <ul class="playerControls seat">
+          <h3>Player 4</h3>
+          <li>Name: <span class="name">unknown</span></li>
+          <li><button class="sit" data-player-id="player4">Sit</button></li>
+          <li><button class="standup" data-player-id="player4" disabled>Stand up</button></li>
+        </ul>
       </div>
     </div>
   </body>

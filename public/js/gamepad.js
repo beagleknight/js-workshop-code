@@ -11,19 +11,30 @@ define(function (require) {
             68: "KEY_D"
         };
 
-    function assignKeys (playerId, keyMapActions) {
-        $(document).on('keydown', function (event) {
-            var action = keyMapActions[lut[event.keyCode]];
 
-            if (action && playerId === seatsController.getPlayerSelectedId()) {
+    //TODO
+    /*
+     * Add the socket parameter
+     */
+    function assignKeys (keyMapActions) {
+        $(document).on('keydown', function (event) {
+            var action = keyMapActions[lut[event.keyCode]],
+                playerId = seatsController.getPlayerSelectedId();
+
+            if (action && playerId) {
                 $(document).trigger(playerId + action);
                 event.preventDefault();
             }
         });
 
-        // Halt player if keyup event happens
         $(document).on('keyup', function () {
-            if (playerId === seatsController.getPlayerSelectedId()) {
+            var playerId = seatsController.getPlayerSelectedId();
+
+            if (playerId) {
+                //TODO
+                /*
+                 * Pass the socket parameter to the event data
+                 */
                 $(document).trigger(playerId + 'Halt');
             }
         });

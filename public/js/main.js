@@ -1,33 +1,41 @@
 requirejs.config({
     baseUrl: 'js',
     paths: {
-        'jquery': '../bower_components/jquery/jquery'
+        'jquery': '../bower_components/jquery/jquery',
+        'io': '/socket.io/socket.io'
     }
 });
 
 define(function (require) {
-    var $                   = require('jquery'),
-        game                = require('game'),
-        player              = require('player'),
-        crate               = require('crate'),
-        seatsController     = require('seats_controller'),
-        gamePad             = require('gamepad');
+    var $               = require('jquery'),
+        game            = require('game'),
+        player          = require('player'),
+        crate           = require('crate'),
+        seatsController = require('seats_controller'),
+        gamePad         = require('gamepad'),
+        io              = require('io');
 
     $(function () {
-        var canvasEl = $('#gameCanvas')[0];
+        var canvasEl = $('#gameCanvas')[0],
+            socket   = io.connect();
 
+        //TODO
+        /*
+         * seatsController module will need the socket in
+         * order to control ocuppied seats.
+         */
         seatsController.init($('.seat'));
-        gamePad.assignKeys('player1', {
+
+        //TODO
+        /*
+         * gamePad module will need the socket in order to 
+         * send player's action to other clients
+         */
+        gamePad.assignKeys({
             'KEY_D' : 'MoveRight',
             'KEY_A' : 'MoveLeft',
             'KEY_W' : 'MoveUp',
             'KEY_S' : 'MoveDown'
-        });
-        gamePad.assignKeys('player2', {
-            'KEY_RIGHT_ARROW' : 'MoveRight',
-            'KEY_LEFT_ARROW'  : 'MoveLeft',
-            'KEY_UP_ARROW'    : 'MoveUp',
-            'KEY_DOWN_ARROW'  : 'MoveDown'
         });
 
         game.load({ 
@@ -36,13 +44,19 @@ define(function (require) {
                 { id: 'crate', src: 'images/crate.png' }
             ]
         }, function () {
+            //TODO
+            /*
+             * Server will send the player's positions so bind an event
+             * called 'getPlayerPositions' and initialize players with
+             * correct positions.
+             */
             game.addEntity(player({
                 id: 'player1',
                 collisionGroup: 'players',
                 hp: 10,
                 position: {
                     x: 100,
-                    y: 300
+                    y: 200
                 }
             }));
 
@@ -51,15 +65,35 @@ define(function (require) {
                 collisionGroup: 'players',
                 hp: 10,
                 position: {
+                    x: 100,
+                    y: 400
+                }
+            }));
+
+            game.addEntity(player({
+                id: 'player3',
+                collisionGroup: 'players',
+                hp: 10,
+                position: {
                     x: 700,
-                    y: 300
+                    y: 200
+                }
+            }));
+
+            game.addEntity(player({
+                id: 'player4',
+                collisionGroup: 'players',
+                hp: 10,
+                position: {
+                    x: 700,
+                    y: 400
                 }
             }));
 
             game.addEntity(crate({
                 collisionGroup: 'crates',
                 position: {
-                    x: 200,
+                    x: 400,
                     y: 100
                 }
             }));
@@ -68,19 +102,27 @@ define(function (require) {
                 collisionGroup: 'crates',
                 position: {
                     x: 400,
-                    y: 200
-                }
-            }));
-
-            game.addEntity(crate({
-                collisionGroup: 'crates',
-                position: {
-                    x: 500,
-                    y: 400
+                    y: 450
                 }
             }));
 
             game.start();
+
+            //TODO
+            /*
+             * Emit the event 'game started' to the server
+             */
+
+        });
+
+        //TODO
+        /*
+         * Remove the following code, it's just a HelloWorld
+         * for test purpouses
+         */
+        socket.on('news', function (data) {
+            console.log(data);
+            socket.emit('my other event', { my: 'data' });
         });
     });
 });
